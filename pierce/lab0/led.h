@@ -6,7 +6,7 @@
  */
 
 //moved the following include from led.c
-#include <xc.h>
+
 
 #include "vardefs.h"
 
@@ -15,6 +15,7 @@
 
 void initLEDs();
 void turnOnLED(int led);
+void turnOffLED(int led);
 
 #endif	/* LED_H */
 
