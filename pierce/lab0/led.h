@@ -6,7 +6,7 @@
  */
 
 //moved the following include from led.c
-
+#include <xc.h>
 
 #include "vardefs.h"
 

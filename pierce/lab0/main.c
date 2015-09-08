@@ -25,7 +25,7 @@ typedef enum stateTypeEnum {
 
 //TODO: Use volatile variables that change within interrupts
 
-volatile state = wait;
+volatile stateType state = wait;
 
 int main() {
 
@@ -59,5 +59,10 @@ int main() {
     }
 
     return 0;
+}
+
+void __ISR(_TIMER_1_VECTOR, IPL7SRS) T1Interrupt(){
+    IFS0bits.T1IF = 0;
+    LATDbits.LATD0 = !LATDbits.LATD0; // 
 }
 

@@ -5,6 +5,8 @@
  * Created on August 27, 2015, 3:26 PM
  */
 
+#include <xc.h>
+
 #ifndef TIMER_H
 #define	TIMER_H
 

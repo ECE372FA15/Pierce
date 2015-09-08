@@ -5,7 +5,7 @@
  * Created on August 27, 2015, 3:32 PM
  */
 
-#include <xc.h>
+
 #include "interrupt.h"
 
 void enableInterrupts(){
