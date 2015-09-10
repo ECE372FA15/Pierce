@@ -11,7 +11,8 @@
 #include "timer.h"
 #include "led.h"
 #include "interrupt.h"
-//#include "config.h"
+#include "config.h"
+#include "vardefs.h"
 
 //The following definitions are already defined in vardefs.h
 //#define OUTPUT 0
@@ -28,7 +29,9 @@ typedef enum stateTypeEnum {
 volatile stateType state = wait;
 
 int main() {
-
+    //Create current and last LED placeholders
+    int lastLED = 1;
+    
     //This function is necessary to use interrupts. 
     enableInterrupts();
 
@@ -37,6 +40,7 @@ int main() {
     initLEDs();
     initTimer2();
     initTimer1();
+    turnOnLED(1);
 
     while (1) {
 
@@ -44,14 +48,35 @@ int main() {
             case wait:
                 if (IFS1bits.CNDIF == ON) {
                     
-                    state = wait2;
+                    state = debouncePress;
                 }
                 break;
 
-            case wait2:
-                if (IFS1bits.CNDIF == ON) {
-                    turnOnLED(1);
+            case debouncePress:
+                if (IFS0bits.T1IF == ON) {
+                    state = led1;
                 }
+                break;
+                
+            case led1:
+                turnOnLED(1);
+                turnOffLED(lastLED);
+                lastLED = 1;
+                state = wait2;
+                break;
+                
+            case led2:
+                turnOnLED(2);
+                turnOffLED(lastLED);
+                lastLED = 2;
+                state = wait;
+                break;
+                
+            case led3:
+                turnOnLED(3);
+                turnOffLED(lastLED);
+                lastLED = 3;
+                state = wait;
                 break;
         }
         //TODO: Implement a state machine to create the desired functionality

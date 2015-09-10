@@ -18,8 +18,6 @@
 #define SW1 PORTDbits.RD6
 #define SW2 PORTDbits.RD7
 #define SW3 PORTDbits.RD13
-#define PRESSED 0
-#define RELEASED 1
 
 void initSwitches();
 

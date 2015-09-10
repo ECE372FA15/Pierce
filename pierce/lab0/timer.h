@@ -6,6 +6,7 @@
  */
 
 #include <xc.h>
+#include "vardefs.h"
 
 #ifndef TIMER_H
 #define	TIMER_H

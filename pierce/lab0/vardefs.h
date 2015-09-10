@@ -13,6 +13,8 @@
 #define OUTPUT 0
 #define ON 1
 #define OFF 0
+#define PRESSED 1
+#define RELEASED 0
 
 #ifdef	__cplusplus
 extern "C" {

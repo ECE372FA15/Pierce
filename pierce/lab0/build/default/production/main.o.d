@@ -4,4 +4,5 @@ switch.h  \
 vardefs.h  \
 timer.h  \
 led.h  \
- interrupt.h 
+ interrupt.h  \
+config.h 
