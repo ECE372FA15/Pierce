@@ -11,10 +11,12 @@
 //Global definitions for all project files
 #define INPUT 1
 #define OUTPUT 0
-#define ON 1
-#define OFF 0
-#define PRESSED 1
-#define RELEASED 0
+#define ENABLE 1
+#define DISABLE 0
+#define PRESSED 0
+#define RELEASED 1
+#define LEDON 1
+#define LEDOFF 0
 
 #ifdef	__cplusplus
 extern "C" {

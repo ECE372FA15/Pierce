@@ -23,41 +23,41 @@ void initTimer1(){
     PR1 = 1221;
     
     //Enable interrupt
-    IEC0bits.T1IE = ON;
+    IEC0bits.T1IE = ENABLE;
     
     //Initialize timer interrupt flag to off
-    IFS0bits.T1IF = OFF;
+    IFS0bits.T1IF = DISABLE;
     
     //Set 
     IPC1bits.T1IP = 3;
     
     //Turn timer on
-    T1CONbits.ON = ON;
+    T1CONbits.ON = ENABLE;
 }
 
-initTimer2(){
+void initTimer2(){
     T2CONbits.TCKPS = 3; 
     
     //initialize timer 2 to zero
     TMR2 = 0;
     
     //Set period register to 1221
-    PR2 = 1221;
+    PR2 = ;
     
     //Enable interrupt
-    IEC0bits.T2IE = ON;
+    IEC0bits.T2IE = ENABLE;
     
     //Initialize timer interrupt flag to off
-    IFS0bits.T2IF = OFF;
+    IFS0bits.T2IF = DISABLE;
     
     //Set 
     IPC2bits.T2IP = 3;
     
     //Turn timer on
-    T2CONbits.ON = ON;
+    T2CONbits.ON = ENABLE;
 }
 
-delayMs(int delay){
+void delayMs(int delay){
     //TODO: Using timer 2, create a delay
     // that is delay amount of ms.
 }

@@ -20,15 +20,15 @@ void initLEDs() {
 void turnOnLED(int led) {
 
     if (led == 1) {
-        LATDbits.LATD0 = ON;
+        LED1 = LEDON;
     }
     
     else if (led == 2) {
-        LATDbits.LATD1 = ON;
+        LED2 = LEDON;
     }
     
     else {
-        LATDbits.LATD2 = ON;
+        LED3 = LEDON;
     }
 
 }
@@ -36,15 +36,15 @@ void turnOnLED(int led) {
 void turnOffLED(int led) {
 
     if (led == 1) {
-        LATDbits.LATD0 = OFF;
+        LED1 = LEDOFF;
     }
     
     else if (led == 2) {
-        LATDbits.LATD1 = OFF;
+        LED2 = LEDOFF;
     }
     
     else {
-        LATDbits.LATD2 = OFF;
+        LED3 = LEDOFF;
     }
 
 }

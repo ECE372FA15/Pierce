@@ -43,17 +43,28 @@ int main() {
     turnOnLED(1);
 
     while (1) {
-
+        
         switch (state) {
             case wait:
-                if (IFS1bits.CNDIF == ON) {
-                    
+                if (SW1 == PRESSED) {
                     state = debouncePress;
                 }
                 break;
 
             case debouncePress:
-                if (IFS0bits.T1IF == ON) {
+                if (SW1 == RELEASED){
+                    state = debounceRelease;
+                }
+                break;
+                
+            case debounceRelease:
+                if(LED1 == LEDON){
+                    state = led2;
+                }
+                else if(LED2 == LEDON){
+                    state = led3;
+                }
+                else if(LED3 == LEDON){
                     state = led1;
                 }
                 break;
@@ -62,7 +73,7 @@ int main() {
                 turnOnLED(1);
                 turnOffLED(lastLED);
                 lastLED = 1;
-                state = wait2;
+                state = wait;
                 break;
                 
             case led2:
@@ -90,4 +101,5 @@ void __ISR(_TIMER_1_VECTOR, IPL7SRS) T1Interrupt(){
     IFS0bits.T1IF = 0;
     LATDbits.LATD0 = !LATDbits.LATD0; // 
 }
+
 
