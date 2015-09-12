@@ -42,7 +42,7 @@ void initTimer2(){
     TMR2 = 0;
     
     //Set period register to 1221
-    PR2 = ;
+    PR2 = 1221;
     
     //Enable interrupt
     IEC0bits.T2IE = ENABLE;
@@ -60,4 +60,11 @@ void initTimer2(){
 void delayMs(int delay){
     //TODO: Using timer 2, create a delay
     // that is delay amount of ms.
+    
+    TMR2 = 0;
+    PR2 = delay*208;
+    IFS0bits.T2IF = 0;
+    T2CONbits.ON = ENABLE;
+    while(IFS0bits.T2IF == 0);
+    T2CONbits.ON = 0;
 }

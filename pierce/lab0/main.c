@@ -47,17 +47,20 @@ int main() {
         switch (state) {
             case wait:
                 if (SW1 == PRESSED) {
+                    delayMs(5);
                     state = debouncePress;
                 }
                 break;
 
             case debouncePress:
                 if (SW1 == RELEASED){
+                    delayMs(5);
                     state = debounceRelease;
                 }
                 break;
                 
             case debounceRelease:
+                delayMs(5);
                 if(LED1 == LEDON){
                     state = led2;
                 }

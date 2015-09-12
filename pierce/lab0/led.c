@@ -12,9 +12,11 @@ void initLEDs() {
 
     //Enables the three LEDs on the PIC32 starter kit as OUTPUTs
     TRISDbits.TRISD0 = OUTPUT;
+    turnOffLED(1);
     TRISDbits.TRISD1 = OUTPUT;
+    turnOffLED(2);
     TRISDbits.TRISD2 = OUTPUT;
-
+    turnOffLED(3);
 }
 
 void turnOnLED(int led) {
