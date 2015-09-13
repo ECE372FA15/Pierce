@@ -44,40 +44,39 @@ int main() {
     turnOnLED(1);
 
     while (1) {
-        turnOnLED(3);
-        delayMs(1000);
-        turnOffLED(3);
-        delayMs(1000);
+
         switch (state) {
 
             case wait:
-                delayMs(10000);
-                if (SW1 == PRESSED) {
-                    state = debouncePress;
 
+                if (SW1 == PRESSED) {
+                    startTimer1();
+                    state = debouncePress;
                 }
 
                 break;
 
             case debouncePress:
 
-                delayMs(10000);
+                delayMs(100);
                 state = wait2;
-
                 break;
 
             case wait2:
-                delayMs(10000);
-                if (SW1 == RELEASED) {
-
+                if (IFS0bits.T1IF == FLAGUP){
+                    stopTimer1();
+                    state = debounceRelease2;
+                }
+                else if (SW1 == RELEASED) {
+                    stopTimer1();
                     state = debounceRelease;
 
                 }
                 break;
 
             case debounceRelease:
-                IFS1bits.CNDIF = FLAGDOWN;
-                delayMs(500);
+
+                delayMs(100);
                 if (currLED == 1) {
                     state = led2;
 
@@ -90,34 +89,51 @@ int main() {
                 }
                 break;
 
+            case debounceRelease2:
+
+                if (SW1 == RELEASED) {
+                    delayMs(100);
+                    if (currLED == 1) {
+                        state = led3;
+
+                    } else if (currLED == 2) {
+                        state = led1;
+
+                    } else if (currLED == 3) {
+                        state = led2;
+
+                    }
+                }
+                break;
+
 
             case led1:
-                delayMs(1000);
+                //delayMs(1000);
                 turnOnLED(1);
                 turnOffLED(currLED);
 
                 currLED = 1;
-                state = led2;
+                state = wait;
 
                 break;
 
             case led2:
-                delayMs(1000);
+                //delayMs(1000);
                 turnOnLED(2);
                 turnOffLED(currLED);
 
                 currLED = 2;
-                state = led3;
+                state = wait;
 
                 break;
 
             case led3:
-                delayMs(1000);
+                //delayMs(1000);
                 turnOnLED(3);
                 turnOffLED(currLED);
 
                 currLED = 3;
-                state = led1;
+                state = wait;
 
                 break;
         }
@@ -128,9 +144,8 @@ int main() {
     return 0;
 }
 
-//void __ISR(_TIMER_1_VECTOR, IPL7SRS) T1Interrupt(){
-//    IFS0bits.T1IF = 0;
-//    LATDbits.LATD0 = !LATDbits.LATD0; // 
+//void __ISR(_TIMER_1_VECTOR, IPL7SRS) T1Interrupt() {
+//    IFS0bits.T1IF = FLAGDOWN;
 //}
 
 
