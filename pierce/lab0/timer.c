@@ -13,14 +13,14 @@ void initTimer1() {
     //TODO: Initialize Timer 1 to have a period of
     // 1 second. Enable its interrupt
 
-    //set the prescale to 64
-    T1CONbits.TCKPS = 2;
+    //set the prescale to 256
+    T1CONbits.TCKPS = 3;
 
     //initialize timer 1 to zero
     TMR1 = 0;
 
     //Set period register to period of 1 second
-    PR1 = 4882;
+    PR1 = 1221*4;
 
     //Enable interrupt
     //IEC0bits.T1IE = ENABLE;

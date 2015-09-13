@@ -108,7 +108,7 @@ int main() {
 
 
             case led1:
-                //delayMs(1000);
+              
                 turnOnLED(1);
                 turnOffLED(currLED);
 
@@ -118,7 +118,7 @@ int main() {
                 break;
 
             case led2:
-                //delayMs(1000);
+               
                 turnOnLED(2);
                 turnOffLED(currLED);
 
@@ -128,7 +128,7 @@ int main() {
                 break;
 
             case led3:
-                //delayMs(1000);
+           
                 turnOnLED(3);
                 turnOffLED(currLED);
 
