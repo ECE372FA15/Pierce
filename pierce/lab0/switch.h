@@ -19,6 +19,7 @@
 #define SW2 PORTDbits.RD7
 #define SW3 PORTDbits.RD13
 
+void initSwitch1();
 void initSwitches();
 
 #endif	/* SWITCH_H */

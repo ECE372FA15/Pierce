@@ -26,7 +26,7 @@ typedef enum stateTypeEnum {
 
 //TODO: Use volatile variables that change within interrupts
 
-volatile stateType state = led1;
+volatile stateType state = wait;
 
 int main() {
     //Create current and last LED placeholders
@@ -34,95 +34,95 @@ int main() {
 
 
     //This function is necessary to use interrupts. 
-    enableInterrupts();
+    //enableInterrupts();
 
     //TODO: Write each initialization function
-    initSwitches();
+    initSwitch1();
     initLEDs();
     initTimer2();
-   // initTimer1();
-    turnOnLED(3);
+    initTimer1();
+    turnOnLED(1);
 
     while (1) {
         turnOnLED(3);
         delayMs(1000);
         turnOffLED(3);
         delayMs(1000);
-//        switch (state) {
-//
-//            case wait:
-//                delayMs(10000);
-//                if (SW1 == PRESSED) {
-//                    state = debouncePress;
-//
-//                }
-//
-//                break;
-//
-//            case debouncePress:
-//
-//                delayMs(10000);
-//                state = wait2;
-//
-//                break;
-//
-//            case wait2:
-//                delayMs(10000);
-//                if (SW1 == RELEASED) {
-//
-//                    state = debounceRelease;
-//
-//                }
-//                break;
-//
-//            case debounceRelease:
-//                IFS1bits.CNDIF = FLAGDOWN;
-//                delayMs(500);
-//                if (currLED == 1) {
-//                    state = led2;
-//
-//                } else if (currLED == 2) {
-//                    state = led3;
-//
-//                } else if (currLED == 3) {
-//                    state = led1;
-//
-//                }
-//                break;
-//
-//
-//            case led1:
-//                delayMs(1000);
-//                turnOnLED(1);
-//                turnOffLED(currLED);
-//
-//                currLED = 1;
-//                state = led2;
-//
-//                break;
-//
-//            case led2:
-//                delayMs(1000);
-//                turnOnLED(2);
-//                turnOffLED(currLED);
-//
-//                currLED = 2;
-//                state = led3;
-//
-//                break;
-//
-//            case led3:
-//                delayMs(1000);
-//                turnOnLED(3);
-//                turnOffLED(currLED);
-//
-//                currLED = 3;
-//                state = led1;
-//
-//                break;
-//        }
-//        //TODO: Implement a state machine to create the desired functionality
-//
+        switch (state) {
+
+            case wait:
+                delayMs(10000);
+                if (SW1 == PRESSED) {
+                    state = debouncePress;
+
+                }
+
+                break;
+
+            case debouncePress:
+
+                delayMs(10000);
+                state = wait2;
+
+                break;
+
+            case wait2:
+                delayMs(10000);
+                if (SW1 == RELEASED) {
+
+                    state = debounceRelease;
+
+                }
+                break;
+
+            case debounceRelease:
+                IFS1bits.CNDIF = FLAGDOWN;
+                delayMs(500);
+                if (currLED == 1) {
+                    state = led2;
+
+                } else if (currLED == 2) {
+                    state = led3;
+
+                } else if (currLED == 3) {
+                    state = led1;
+
+                }
+                break;
+
+
+            case led1:
+                delayMs(1000);
+                turnOnLED(1);
+                turnOffLED(currLED);
+
+                currLED = 1;
+                state = led2;
+
+                break;
+
+            case led2:
+                delayMs(1000);
+                turnOnLED(2);
+                turnOffLED(currLED);
+
+                currLED = 2;
+                state = led3;
+
+                break;
+
+            case led3:
+                delayMs(1000);
+                turnOnLED(3);
+                turnOffLED(currLED);
+
+                currLED = 3;
+                state = led1;
+
+                break;
+        }
+        //TODO: Implement a state machine to create the desired functionality
+
     }
 
     return 0;

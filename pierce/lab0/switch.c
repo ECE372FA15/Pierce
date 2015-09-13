@@ -7,6 +7,11 @@
 
 #include "switch.h"
 
+void initSwitch1(){
+    TRISDbits.TRISD6 = INPUT;
+    CNPUDbits.CNPUD6 = ENABLE;
+}
+
 void initSwitches(){
     
     //Enable all three switches on the PIC32 starter kit as inputs
