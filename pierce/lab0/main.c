@@ -26,12 +26,13 @@ typedef enum stateTypeEnum {
 
 //TODO: Use volatile variables that change within interrupts
 
-volatile stateType state = wait;
+volatile stateType state = led1;
 
 int main() {
     //Create current and last LED placeholders
-    int lastLED = 1;
-    
+    int currLED = 1;
+
+
     //This function is necessary to use interrupts. 
     enableInterrupts();
 
@@ -39,70 +40,97 @@ int main() {
     initSwitches();
     initLEDs();
     initTimer2();
-    initTimer1();
-    turnOnLED(1);
+   // initTimer1();
+    turnOnLED(3);
 
     while (1) {
-        
-        switch (state) {
-            case wait:
-                if (SW1 == PRESSED) {
-                    delayMs(5);
-                    state = debouncePress;
-                }
-                break;
-
-            case debouncePress:
-                if (SW1 == RELEASED){
-                    delayMs(5);
-                    state = debounceRelease;
-                }
-                break;
-                
-            case debounceRelease:
-                delayMs(5);
-                if(LED1 == LEDON){
-                    state = led2;
-                }
-                else if(LED2 == LEDON){
-                    state = led3;
-                }
-                else if(LED3 == LEDON){
-                    state = led1;
-                }
-                break;
-                
-            case led1:
-                turnOnLED(1);
-                turnOffLED(lastLED);
-                lastLED = 1;
-                state = wait;
-                break;
-                
-            case led2:
-                turnOnLED(2);
-                turnOffLED(lastLED);
-                lastLED = 2;
-                state = wait;
-                break;
-                
-            case led3:
-                turnOnLED(3);
-                turnOffLED(lastLED);
-                lastLED = 3;
-                state = wait;
-                break;
-        }
-        //TODO: Implement a state machine to create the desired functionality
-
+        turnOnLED(3);
+        delayMs(1000);
+        turnOffLED(3);
+        delayMs(1000);
+//        switch (state) {
+//
+//            case wait:
+//                delayMs(10000);
+//                if (SW1 == PRESSED) {
+//                    state = debouncePress;
+//
+//                }
+//
+//                break;
+//
+//            case debouncePress:
+//
+//                delayMs(10000);
+//                state = wait2;
+//
+//                break;
+//
+//            case wait2:
+//                delayMs(10000);
+//                if (SW1 == RELEASED) {
+//
+//                    state = debounceRelease;
+//
+//                }
+//                break;
+//
+//            case debounceRelease:
+//                IFS1bits.CNDIF = FLAGDOWN;
+//                delayMs(500);
+//                if (currLED == 1) {
+//                    state = led2;
+//
+//                } else if (currLED == 2) {
+//                    state = led3;
+//
+//                } else if (currLED == 3) {
+//                    state = led1;
+//
+//                }
+//                break;
+//
+//
+//            case led1:
+//                delayMs(1000);
+//                turnOnLED(1);
+//                turnOffLED(currLED);
+//
+//                currLED = 1;
+//                state = led2;
+//
+//                break;
+//
+//            case led2:
+//                delayMs(1000);
+//                turnOnLED(2);
+//                turnOffLED(currLED);
+//
+//                currLED = 2;
+//                state = led3;
+//
+//                break;
+//
+//            case led3:
+//                delayMs(1000);
+//                turnOnLED(3);
+//                turnOffLED(currLED);
+//
+//                currLED = 3;
+//                state = led1;
+//
+//                break;
+//        }
+//        //TODO: Implement a state machine to create the desired functionality
+//
     }
 
     return 0;
 }
 
-void __ISR(_TIMER_1_VECTOR, IPL7SRS) T1Interrupt(){
-    IFS0bits.T1IF = 0;
-    LATDbits.LATD0 = !LATDbits.LATD0; // 
-}
+//void __ISR(_TIMER_1_VECTOR, IPL7SRS) T1Interrupt(){
+//    IFS0bits.T1IF = 0;
+//    LATDbits.LATD0 = !LATDbits.LATD0; // 
+//}
 
 

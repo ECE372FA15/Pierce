@@ -14,7 +14,7 @@ void initTimer1(){
     // 1 second. Enable its interrupt
     
     //set the prescaler to 256
-    T1CONbits.TCKPS = 3; 
+    T1CONbits.TCKPS = 0; 
     
     //initialize timer 1 to zero
     TMR1 = 0;
@@ -28,7 +28,7 @@ void initTimer1(){
     //Initialize timer interrupt flag to off
     IFS0bits.T1IF = DISABLE;
     
-    //Set 
+    //Set interrupt priority
     IPC1bits.T1IP = 3;
     
     //Turn timer on
@@ -36,35 +36,35 @@ void initTimer1(){
 }
 
 void initTimer2(){
-    T2CONbits.TCKPS = 3; 
+    T2CONbits.TCKPS = 0; 
     
     //initialize timer 2 to zero
     TMR2 = 0;
     
     //Set period register to 1221
-    PR2 = 1221;
+    //PR2 = 1221;
     
     //Enable interrupt
-    IEC0bits.T2IE = ENABLE;
+   // IEC0bits.T2IE = ENABLE;
     
     //Initialize timer interrupt flag to off
-    IFS0bits.T2IF = DISABLE;
+    IFS0bits.T2IF = FLAGDOWN;
     
-    //Set 
-    IPC2bits.T2IP = 3;
+    //Set interrupt priority
+    //IPC2bits.T2IP = 3;
     
     //Turn timer on
-    T2CONbits.ON = ENABLE;
+    T2CONbits.ON = 0;
 }
 
-void delayMs(int delay){
+void delayMs(unsigned int delay){
     //TODO: Using timer 2, create a delay
     // that is delay amount of ms.
     
     TMR2 = 0;
-    PR2 = delay*208;
+    PR2 = delay*312;
     IFS0bits.T2IF = 0;
-    T2CONbits.ON = ENABLE;
+    T2CONbits.ON = 1;
     while(IFS0bits.T2IF == 0);
     T2CONbits.ON = 0;
 }

@@ -17,6 +17,8 @@
 #define RELEASED 1
 #define LEDON 1
 #define LEDOFF 0
+#define FLAGUP 1
+#define FLAGDOWN 0
 
 #ifdef	__cplusplus
 extern "C" {
