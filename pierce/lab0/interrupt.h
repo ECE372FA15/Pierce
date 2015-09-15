@@ -11,6 +11,7 @@
 #ifndef INTERRUPT_H
 #define	INTERRUPT_H
 
+//enables interrupts
 void enableInterrupts();
 
 #endif	/* INTERRUPT_H */

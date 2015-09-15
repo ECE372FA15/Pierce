@@ -1,6 +1,6 @@
 /* 
  * File:   switch.c
- * Author: gvanhoy
+ * Author: simpspr
  *
  * Created on August 27, 2015, 3:12 PM
  */
@@ -8,6 +8,7 @@
 #include "switch.h"
 
 void initSwitch1(){
+    //Enable SW1 as input and enable pullup resistor
     TRISDbits.TRISD6 = INPUT;
     CNPUDbits.CNPUD6 = ENABLE;
 }

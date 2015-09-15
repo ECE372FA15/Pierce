@@ -1,6 +1,6 @@
 /* 
  * File:   timer.c
- * Author: gvanhoy
+ * Author: simpspr
  *
  * Created on August 27, 2015, 3:26 PM
  */
@@ -56,6 +56,10 @@ void initTimer2() {
 
     //Turn timer on
     T2CONbits.ON = 1;
+}
+
+void init32bitTimer(){
+    
 }
 
 void startTimer1() {

@@ -1,6 +1,6 @@
 /* 
  * File:   vardefs.h
- * Author: pierce
+ * Author: simpspr
  *
  * Created on August 29, 2015, 3:47 PM
  */

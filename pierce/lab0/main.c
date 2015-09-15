@@ -1,6 +1,6 @@
 /* 
  * File:   main.c
- * Author: gvanhoy
+ * Author: simpspr
  * Description: lab 0.
  * Created on August 27, 2015, 10:14 AM
  */
@@ -18,7 +18,18 @@
 //#define OUTPUT 0
 //#define INPUT 1
 
-//TODO: Define states of the state machine
+//State machine states:
+//wait: Waits for SW1 to be pressed. When SW1 is pressed, Timer 1 starts.
+//debouncePress: Delay for 100ms to prevent switch bouncing.
+//wait2: Waits for SW1 to be released
+//debounceRelease: Delay for 100ms to prevent switch bouncing. Checks which LED
+//is currently on and goes to the appropriate ledx state.
+//debounceRelease2: Access through Timer1 ISR. Waits for SW1 to be released,
+//debounces for 100ms, checks which LED is currently on a goes to the appropriate
+//ledx state.
+//led1: Turns on LED1 and turns off the currently lit LED
+//led1: Turns on LED2 and turns off the currently lit LED
+//led1: Turns on LED3 and turns off the currently lit LED
 
 typedef enum stateTypeEnum {
     led1, led2, led3, wait, wait2, debouncePress, debounceRelease, debounceRelease2
@@ -29,22 +40,30 @@ typedef enum stateTypeEnum {
 volatile stateType state = wait;
 
 int main() {
-    //Create current and last LED placeholders
+    //Create current LED placeholders
     int currLED = 1;
 
-
     //This function is necessary to use interrupts. 
-    //enableInterrupts();
+    enableInterrupts();
 
-    //TODO: Write each initialization function
+    //Initialize SW1
     initSwitch1();
+    
+    //Initialize all LEDs
     initLEDs();
+    
+   //Initialize Timer 2
     initTimer2();
+    
+    //Initialize Timer 1
     initTimer1();
+    
+    //Turn on LED 1 before starting the state machine
     turnOnLED(1);
 
     while (1) {
-
+        
+        //See state descriptions above
         switch (state) {
 
             case wait:
@@ -63,12 +82,12 @@ int main() {
                 break;
 
             case wait2:
-                if (IFS0bits.T1IF == FLAGUP){
-                    stopTimer1();
-                    state = debounceRelease2;
-                }
-                else if (SW1 == RELEASED) {
-                    stopTimer1();
+//                if (IFS0bits.T1IF == FLAGUP){
+//                    stopTimer1();
+//                    state = debounceRelease2;
+//                }
+                if (SW1 == RELEASED) {
+                   // stopTimer1();
                     state = debounceRelease;
 
                 }
@@ -137,15 +156,19 @@ int main() {
 
                 break;
         }
-        //TODO: Implement a state machine to create the desired functionality
-
     }
 
     return 0;
 }
 
-//void __ISR(_TIMER_1_VECTOR, IPL7SRS) T1Interrupt() {
-//    IFS0bits.T1IF = FLAGDOWN;
-//}
+//Interrupt service routine for Timer1. Puts the flag down when it goes up,
+//goes to debounceRelease2 state.
+void __ISR(_TIMER_1_VECTOR, IPL7SRS) T1Interrupt() {
+    IFS0bits.T1IF = FLAGDOWN;
+    stopTimer1();
+    if(state == wait2){
+        state = debounceRelease2;
+    }
+}
 
 
