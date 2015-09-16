@@ -44,7 +44,7 @@ int main() {
     int currLED = 1;
 
     //This function is necessary to use interrupts. 
-    enableInterrupts();
+    //enableInterrupts();
 
     //Initialize SW1
     initSwitch1();
@@ -82,13 +82,13 @@ int main() {
                 break;
 
             case wait2:
-//                if (IFS0bits.T1IF == FLAGUP){
-//                    stopTimer1();
-//                    state = debounceRelease2;
-//                }
+                if (IFS0bits.T1IF == FLAGUP){
+                    stopTimer1();
+                    state = debounceRelease2;
+                }
                 if (SW1 == RELEASED) {
-                   // stopTimer1();
-                    state = debounceRelease;
+                   stopTimer1();
+                   state = debounceRelease;
 
                 }
                 break;
@@ -163,12 +163,12 @@ int main() {
 
 //Interrupt service routine for Timer1. Puts the flag down when it goes up,
 //goes to debounceRelease2 state.
-void __ISR(_TIMER_1_VECTOR, IPL7SRS) T1Interrupt() {
-    IFS0bits.T1IF = FLAGDOWN;
-    stopTimer1();
-    if(state == wait2){
-        state = debounceRelease2;
-    }
-}
+//void __ISR(_TIMER_1_VECTOR, IPL7SRS) T1Interrupt() {
+//    stopTimer1();
+//    if(state == wait2){
+//        state = debounceRelease2;
+//    }
+//    return;
+//}
 
 

@@ -23,7 +23,7 @@ void initTimer1() {
     PR1 = 1221*4;
 
     //Enable interrupt
-    //IEC0bits.T1IE = ENABLE;
+   //IEC0bits.T1IE = ENABLE;
 
     //Initialize timer interrupt flag to off
     IFS0bits.T1IF = FLAGDOWN;
